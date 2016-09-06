@@ -6,14 +6,19 @@ import requests
 
 
 QUERIES = [
-    'typeerror',
+    'type',
     'null',
     'undefined',
 ]
 
 KEYWORDS = {
-    'error': 2,
     'exception': 2,
+    'error': 2,
+    'uncaught': 2,
+    'unexpected': 2,
+    'raised': 2,
+    'undefined': 1,
+    'null': 1,
     'not found': 1,
     'expected': 1,
     'cannot': 1,
@@ -21,8 +26,12 @@ KEYWORDS = {
     'does not': 1,
     'has no': 1,
     ':': 1,
+    'http://': -3,
+    'https://': -3,
     '(': -0.5,
     ')': -0.5,
+    '{': -0.5,
+    '}': -0.5,
 }
 
 PAGESIZE = 100
