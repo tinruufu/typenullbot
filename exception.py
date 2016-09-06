@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import random
+import re
 
 import requests
 
@@ -80,7 +81,8 @@ def score_snippet(snippet):
     if (
         (not 20 < len(snippet) < 140) or
         ('\n ' in snippet) or
-        is_bad(lower_snippet)
+        is_bad(lower_snippet) or
+        re.search(r'@[a-z\d_]+', lower_snippet)
     ):
         return 0
 
