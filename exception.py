@@ -4,6 +4,12 @@ import re
 
 import requests
 
+try:
+    from secrets import se_auth
+except ImportError:
+    print('no stack exchange credentials, api will be throttled')
+    se_auth = {}
+
 
 QUERIES = [
     'type',
@@ -34,7 +40,7 @@ KEYWORDS = {
     '}': -0.5,
 }
 
-PAGESIZE = 100
+PAGESIZE = 30
 
 SLURS = [s.lower() for s in requests.get(
     'https://raw.githubusercontent.com/dariusk/wordfilter/'
@@ -46,14 +52,20 @@ def stackoverflow(endpoint, **params):
     default_params = {
         'site': 'stackoverflow',
         'pagesize': PAGESIZE,
+        **se_auth,
     }
 
     default_params.update(params)
 
-    return requests.get(
+    resp = requests.get(
         'https://api.stackexchange.com/2.2/{}'.format(endpoint),
         params=default_params,
     ).json()
+
+    if 'error_id' in resp:
+        raise ValueError(resp)
+
+    return resp
 
 
 def get_question(query):
