@@ -75,7 +75,7 @@ def get_question(query):
 
     index = random.randint(0, total-1)
     page = index // PAGESIZE
-    pageindex = index % 100
+    pageindex = index % PAGESIZE
 
     question_id = stackoverflow(
         'search', intitle=query, page=page,
