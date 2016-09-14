@@ -31,7 +31,6 @@ KEYWORDS = {
     "can't": 1,
     'does not': 1,
     'has no': 1,
-    ':': 1,
     'http://': -3,
     'https://': -3,
     '(': -0.5,
